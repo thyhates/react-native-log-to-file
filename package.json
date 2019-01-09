@@ -1,6 +1,6 @@
 {
   "name": "react-native-log-to-file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "log message to file in react native",
   "main": "index.js",
   "scripts": {

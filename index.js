@@ -1,2 +1,2 @@
 import React, { NativeModules } from 'react-native';
-module.exports = NativeModules.NativeModuleLogToFile;
+export default NativeModules.NativeModuleLogToFile
