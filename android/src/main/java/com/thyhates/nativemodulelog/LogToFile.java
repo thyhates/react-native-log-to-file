@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.lang.Runtime;
 
 public class LogToFile extends ReactContextBaseJavaModule {
 
@@ -48,6 +49,36 @@ public class LogToFile extends ReactContextBaseJavaModule {
         String applicationName = getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
         promise.resolve(applicationName);
     }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public int getTotalMemorySync() {
+        Runtime rt = Runtime.getRuntime();
+        long totalMemory = rt.totalMemory();
+        return (int)totalMemory;
+    }
+
+    @ReactMethod
+    public void getTotalMemory(Promise p) { p.resolve(getTotalMemorySync()); }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public int getMaxMemorySync() {
+        Runtime rt = Runtime.getRuntime();
+        long maxMemory = rt.maxMemory();
+        return (int)maxMemory;
+    }
+
+    @ReactMethod
+    public void getMaxMemory(Promise p) { p.resolve(getMaxMemorySync()); }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public int getUsedMemorySync() {
+        Runtime rt = Runtime.getRuntime();
+        long usedMemory = rt.totalMemory() - rt.freeMemory();
+        return (int)usedMemory;
+    }
+
+    @ReactMethod
+    public void getUsedMemory(Promise p) { p.resolve(getUsedMemorySync()); }
 
     public static String getDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
